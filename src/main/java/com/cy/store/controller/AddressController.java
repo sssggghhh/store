@@ -66,6 +66,12 @@ public class AddressController extends BaseController{
         return new JsonResult<Void>(OK);
     }
 
+    /**
+     * 删除收货地址
+     * @param aid
+     * @param session
+     * @return
+     */
     @RequestMapping("{aid}/delete")
     public JsonResult<Void> deleteAddress(@PathVariable("aid") Integer aid,HttpSession session){
         Integer uid = getuidFromSession(session);
