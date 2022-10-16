@@ -59,7 +59,10 @@ public class BaseController {
          }else if (e instanceof AddressDeniedException){
         result.setState(7003);
         result.setMessage("非法访问收货地址异常");
-        }
+         }else if (e instanceof ProductNotFoundException){
+            result.setState(8001);
+            result.setMessage("商品信息不存在异常");
+         }
 
         return result;
     }

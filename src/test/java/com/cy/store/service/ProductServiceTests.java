@@ -28,4 +28,10 @@ public class ProductServiceTests {
             System.out.println(product);
         }
     }
+
+    @Test
+    public void testFindProductById(){
+        Product product = iProductService.findProductById(10000037);
+        System.out.println(product);
+    }
 }

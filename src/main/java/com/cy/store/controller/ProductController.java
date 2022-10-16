@@ -4,6 +4,8 @@ import com.cy.store.entity.Product;
 import com.cy.store.service.IProductService;
 import com.cy.store.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,5 +32,16 @@ public class ProductController extends BaseController{
     public JsonResult<List<Product>> getHotProduct(){
         List<Product> hotProduct = iProductService.findHotProduct();
         return new JsonResult<List<Product>>(OK,hotProduct);
+    }
+
+    /**
+     * 根据商品id查询商品详情
+     * @param id
+     * @return
+     */
+    @GetMapping("{id}/details")
+    public JsonResult<Product> getProductById(@PathVariable("id") Integer id){
+        Product product = iProductService.findProductById(id);
+        return new JsonResult<Product>(OK,product);
     }
 }
