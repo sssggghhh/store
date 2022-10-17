@@ -30,16 +30,9 @@
 
     <!--根据用户Id查询用户的购物车列表数据-->
     <select id="findCartVOByUid" resultType="com.cy.store.vo.CartVO">
-        select
-            cid,
-            uid,
-            pid,
-            t_cart.price,
-            t_cart.num,
-            t_product.title,
-            t_product.price as realPrice,
+        select cid,uid,pid,t_cart.price,t_cart.num,t_product.title,t_product.price as realPrice
         from
-            t_cart left join t_product on t_cart.pid = t.product.id
+            t_cart left join t_product on t_cart.pid = t_product.id
         where
             uid = #{uid}
         order by

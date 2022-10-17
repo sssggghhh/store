@@ -1,7 +1,9 @@
 package com.cy.store.service;
 
 
-import com.cy.store.entity.Cart;
+import com.cy.store.vo.CartVO;
+
+import java.util.List;
 
 /**
  * 用户插入接口
@@ -16,4 +18,11 @@ public interface ICartService {
      * @param username 登录用户的用户名
      */
     void addToCart(Integer uid,Integer pid,Integer num,String username);
+
+    /**
+     * 根据用户uid获取该用户的购物车商品信息
+     * @param uid
+     * @return
+     */
+    List<CartVO> getCartVOByUid(Integer uid);
 }

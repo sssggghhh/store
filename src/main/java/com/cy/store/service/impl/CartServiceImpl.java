@@ -1,20 +1,15 @@
 package com.cy.store.service.impl;
 
-import com.cy.store.entity.Address;
 import com.cy.store.entity.Cart;
 import com.cy.store.entity.Product;
-import com.cy.store.mapper.AddressMapper;
 import com.cy.store.mapper.CartMapper;
-import com.cy.store.mapper.ProductMapper;
-import com.cy.store.service.IAddressService;
 import com.cy.store.service.ICartService;
-import com.cy.store.service.IDistrictService;
 import com.cy.store.service.IProductService;
-import com.cy.store.service.ex.*;
+import com.cy.store.service.ex.InsertException;
+import com.cy.store.service.ex.UpdateException;
+import com.cy.store.vo.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -71,5 +66,11 @@ public class CartServiceImpl implements ICartService {
                 throw new UpdateException("更新购物车商品数量时出错！");
             }
         }
+    }
+
+    @Override
+    public List<CartVO> getCartVOByUid(Integer uid) {
+        List<CartVO> cartVOByUid = cartMapper.findCartVOByUid(uid);
+        return cartVOByUid;
     }
 }
