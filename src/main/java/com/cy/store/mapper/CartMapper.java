@@ -1,9 +1,11 @@
 package com.cy.store.mapper;
 
 import com.cy.store.entity.Cart;
+import com.cy.store.vo.CartVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: su_gh
@@ -40,5 +42,12 @@ public interface CartMapper {
      * @return 匹配的购物车中的数据，如果该用户的购物车中并没有该商品，则返回null
      */
     Cart findByUidAndPid(@Param("uid") Integer uid,@Param("pid") Integer pid);
+
+    /**
+     * 根据用户id查询用户的购物车数据
+     * @param uid
+     * @return 该用户的购物车列表数据
+     */
+    List<CartVO> findCartVOByUid(Integer uid);
 
 }

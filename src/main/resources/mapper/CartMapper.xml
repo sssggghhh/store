@@ -12,5 +12,39 @@
         <result column="modified_time" property="modifiedTime"/>
     </resultMap>
 
+    <!--向购物车中插入商品数据-->
+    <insert id="insertCart" useGeneratedKeys="true" keyProperty="cid">
+        insert into t_cart(uid,pid,price,num,created_user,created_time,modified_user,modified_time) values
+        (#{uid},#{pid},#{price},#{num},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+    </insert>
+
+    <!--修改购物车中商品的数量信息-->
+    <update id="updateNumByCid">
+        update t_cart set num = #{num},modified_user = #{modifiedUser},modified_time= #{modifiedTime} where cid = #{cid}
+    </update>
+
+    <!--根据用户uid和商品的pid查询-->
+    <select id="findByUidAndPid" resultMap="CartEntityMap">
+        select * from t_cart where uid = #{uid} and pid = #{pid}
+    </select>
+
+    <!--根据用户Id查询用户的购物车列表数据-->
+    <select id="findCartVOByUid" resultType="com.cy.store.vo.CartVO">
+        select
+            cid,
+            uid,
+            pid,
+            t_cart.price,
+            t_cart.num,
+            t_product.title,
+            t_product.price as realPrice,
+        from
+            t_cart left join t_product on t_cart.pid = t.product.id
+        where
+            uid = #{uid}
+        order by
+            t_cart.created_time desc
+    </select>
+
 
 </mapper>

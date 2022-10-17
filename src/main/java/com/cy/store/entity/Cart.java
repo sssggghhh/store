@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * @Auther: su_gh
  * @Date: 2022 - 10 - 16 - 16:55
- * @Description: com.cy.store.entity
+ * @Description: 购物车实体类
  * @Vsersion: 1.0
  */
 public class Cart extends BaseEntity implements Serializable {
@@ -53,6 +53,9 @@ public class Cart extends BaseEntity implements Serializable {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public Cart() {
     }
 
     public Cart(Integer cid, Integer uid, Integer pid, Long price, Integer num) {
