@@ -62,7 +62,10 @@ public class BaseController {
          }else if (e instanceof ProductNotFoundException){
             result.setState(8001);
             result.setMessage("商品信息不存在异常");
-         }
+         }else if (e instanceof CartNotFoundException){
+            result.setState(8002);
+            result.setMessage("商品信息不存在异常");
+        }
 
         return result;
     }

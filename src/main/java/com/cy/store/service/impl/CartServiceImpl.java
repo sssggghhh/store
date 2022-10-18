@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
-import java.security.AccessControlException;
 import java.util.Date;
 import java.util.List;
 
@@ -108,7 +107,11 @@ public class CartServiceImpl implements ICartService {
         // 判断查询结果中的uid与参数uid是否不一致
         if (!cartByCid.getUid().equals(uid)) {
             // 是：抛出AccessDeniedException
-            throw new AccessDeniedException("非法访问!");
+            try {
+                throw new AccessDeniedException("非法访问!");
+            } catch (AccessDeniedException e) {
+                e.printStackTrace();
+            }
         }
         // 可选：检查商品的数量是否大于多少(适用于增加数量)或小于多少(适用于减少数量)
         // 根据查询结果中的原数量增加1得到新的数量num
