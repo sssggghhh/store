@@ -22,7 +22,16 @@ public interface ICartService {
     /**
      * 根据用户uid获取该用户的购物车商品信息
      * @param uid
-     * @return
+     * @return 返回购物车中数据
      */
     List<CartVO> getCartVOByUid(Integer uid);
+
+    /**
+     * 将购物车中某商品的数量加1
+     * @param cid
+     * @param uid
+     * @param username
+     * @return 返回修改后的商品数量
+     */
+    Integer addNum(Integer cid,Integer uid,String username);
 }

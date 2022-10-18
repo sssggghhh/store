@@ -39,5 +39,10 @@
             t_cart.created_time desc
     </select>
 
+    <!--根据购物车cid查询购物车中商品信息-->
+    <select id="findCartByCid" resultMap="CartEntityMap">
+        select * from t_cart where cid = #{cid}
+    </select>
+
 
 </mapper>

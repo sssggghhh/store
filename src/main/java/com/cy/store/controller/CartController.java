@@ -40,4 +40,6 @@ public class CartController extends BaseController{
         List<CartVO> list = iCartService.getCartVOByUid(uid);
         return new JsonResult<List<CartVO>>(OK,list);
     }
+
+    public JsonResult<Integer> addNum(){}
 }

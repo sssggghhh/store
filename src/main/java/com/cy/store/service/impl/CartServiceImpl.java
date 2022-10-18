@@ -5,12 +5,15 @@ import com.cy.store.entity.Product;
 import com.cy.store.mapper.CartMapper;
 import com.cy.store.service.ICartService;
 import com.cy.store.service.IProductService;
+import com.cy.store.service.ex.CartNotFoundException;
 import com.cy.store.service.ex.InsertException;
 import com.cy.store.service.ex.UpdateException;
 import com.cy.store.vo.CartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
+import java.security.AccessControlException;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +31,13 @@ public class CartServiceImpl implements ICartService {
     @Autowired
     private IProductService iProductService;
 
+    /**
+     * 向购物车中添加商品
+     * @param uid 用户ID
+     * @param pid 商品ID
+     * @param num 添加商品的数量
+     * @param username 登录用户的用户名
+     */
     @Override
     public void addToCart(Integer uid, Integer pid, Integer num, String username) {
         // 根据参数pid和uid查询购物车中的数据
@@ -68,9 +78,49 @@ public class CartServiceImpl implements ICartService {
         }
     }
 
+    /**
+     * 查看购物车中的商品信息
+     * @param uid
+     * @return
+     */
     @Override
     public List<CartVO> getCartVOByUid(Integer uid) {
         List<CartVO> cartVOByUid = cartMapper.findCartVOByUid(uid);
         return cartVOByUid;
+    }
+
+    /**
+     * 增加购物车中商品的数量
+     * @param cid
+     * @param uid
+     * @param username
+     * @return
+     */
+    @Override
+    public Integer addNum(Integer cid, Integer uid, String username){
+        // 调用findByCid(cid)根据参数cid查询购物车数据
+        Cart cartByCid = cartMapper.findCartByCid(cid);
+        // 判断查询结果是否为null
+        if (cartByCid == null) {
+            // 是：抛出CartNotFoundException
+            throw new CartNotFoundException("该购物车数据不存在!");
+        }
+        // 判断查询结果中的uid与参数uid是否不一致
+        if (!cartByCid.getUid().equals(uid)) {
+            // 是：抛出AccessDeniedException
+            throw new AccessDeniedException("非法访问!");
+        }
+        // 可选：检查商品的数量是否大于多少(适用于增加数量)或小于多少(适用于减少数量)
+        // 根据查询结果中的原数量增加1得到新的数量num
+        Integer num = cartByCid.getNum()+1;
+
+        // 创建当前时间对象，作为modifiedTime
+        Date date = new Date();
+        // 调用updateNumByCid(cid, num, modifiedUser, modifiedTime)执行修改数量
+        Integer integer = cartMapper.updateNumByCid(cid, num, username, date);
+        if (integer != 1){
+            throw new InsertException("修改商品数量时出现未知错误!");
+        }
+        return num;
     }
 }

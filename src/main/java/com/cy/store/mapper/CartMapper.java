@@ -16,7 +16,7 @@ import java.util.List;
 public interface CartMapper {
 
     /**
-     * 插入购物车信息
+     * 将商品插入购物车信息
      * @param cart
      * @return
      */
@@ -49,5 +49,12 @@ public interface CartMapper {
      * @return 该用户的购物车列表数据
      */
     List<CartVO> findCartVOByUid(Integer uid);
+
+    /**
+     * 根据购物车cid查询购物车中的数据
+     * @param cid
+     * @return
+     */
+    Cart findCartByCid(Integer cid);
 
 }
