@@ -34,4 +34,12 @@ public interface ICartService {
      * @return 返回修改后的商品数量
      */
     Integer addNum(Integer cid,Integer uid,String username);
+
+    /**
+     * 根据若干个购物车数据id查询想详情的列表
+     * @param uid
+     * @param cids
+     * @return  匹配的购物车数据详情的列表
+     */
+    List<CartVO> getCartVOByCids(Integer uid,Integer[] cids);
 }

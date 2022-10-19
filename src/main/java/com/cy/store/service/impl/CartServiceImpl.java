@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -125,5 +126,19 @@ public class CartServiceImpl implements ICartService {
             throw new InsertException("修改商品数量时出现未知错误!");
         }
         return num;
+    }
+
+
+    @Override
+    public List<CartVO> getCartVOByCids(Integer uid, Integer[] cids) {
+        List<CartVO> cartVOByCids = cartMapper.findCartVOByCids(cids);
+        Iterator<CartVO> it = cartVOByCids.iterator();
+
+         while (it.hasNext()){
+             if(!it.next().getUid().equals(uid)){
+                 it.remove();
+             }
+         }
+        return cartVOByCids;
     }
 }

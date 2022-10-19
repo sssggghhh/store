@@ -55,11 +55,30 @@ public class CartController extends BaseController{
     }
 
 
+    /**
+     * 增加购物车中商品的数量
+     * @param cid
+     * @param session
+     * @return
+     */
     @RequestMapping("{cid}/num/add")
     public JsonResult<Integer> addNum(@PathVariable("cid") Integer cid, HttpSession session){
         Integer uid = getuidFromSession(session);
         String username = getusernameFromSession(session);
         Integer data = iCartService.addNum(cid, uid, username);
         return new JsonResult<Integer>(OK,data);
+    }
+
+    /**
+     * 根据前台界面传递过来的购物车id查询商品
+     * @param cids
+     * @param session
+     * @return
+     */
+    @GetMapping("list")
+    public JsonResult<List<CartVO>> getCartVOByCids(Integer[] cids,HttpSession session){
+        Integer uid = getuidFromSession(session);
+        List<CartVO> cartVOByCids = iCartService.getCartVOByCids(uid, cids);
+        return new JsonResult<List<CartVO>>(OK,cartVOByCids);
     }
 }

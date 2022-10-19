@@ -30,7 +30,7 @@
 
     <!--根据用户Id查询用户的购物车列表数据-->
     <select id="findCartVOByUid" resultType="com.cy.store.vo.CartVO">
-        select cid,uid,pid,t_cart.price,t_cart.num,t_product.title,t_product.price as realPrice
+        select cid,uid,pid,t_cart.price,t_cart.num,t_product.title,t_product.price as realPrice,t_product.image
         from
             t_cart left join t_product on t_cart.pid = t_product.id
         where
@@ -42,6 +42,17 @@
     <!--根据购物车cid查询购物车中商品信息-->
     <select id="findCartByCid" resultMap="CartEntityMap">
         select * from t_cart where cid = #{cid}
+    </select>
+
+    <!--根据若干个cid查询购物车中的数据-->
+    <select id="findCartVOByCids" resultMap="com.cy.store.vo.CartVO">
+        select cid,uid,pid,t_cart.price,t_cart.num,t_product.title,t_product.price as realPrice,t_product.image
+        from t_cart left join t_product on t_cart.pid = t_product.id
+        where cid in (
+            <foreach collection="array" item="cid" separator=",">
+                #{cid}
+            </foreach> )
+        order by t_cart.created_time desc
     </select>
 
 

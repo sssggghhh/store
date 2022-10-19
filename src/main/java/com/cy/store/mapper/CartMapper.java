@@ -57,4 +57,11 @@ public interface CartMapper {
      */
     Cart findCartByCid(Integer cid);
 
+    /**
+     * 根据若干个购物车数据id查询商品详情的列表
+     * @param cids
+     * @return 返回选择的购物车数据
+     */
+    List<CartVO> findCartVOByCids(Integer[] cids);
+
 }

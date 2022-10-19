@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace属性：用于指定当前的映射文件和哪个接口进行映射，需要指定接口的文件路径，需要标注报的完整路径接口-->
+<mapper namespace="com.cy.store.mapper.OrderMapper">
+
+    <!--插入订单-->
+    <insert id="insertOrder" useGeneratedKeys="true" databaseId="oid">
+        insert into t_order(
+                            uid,recv_name,recv_phone,recv_province,recv_city,recv_area,recv_address,recv_price,status,
+                            order_time,pay_time,created_user,created_time,modified_user,modified_time
+        )
+        values(
+               #{uid},#{recvName},#{recvPhone},#{recvProvince},#{recvCity},#{recvArea},#{recvAddress},#{totalPrice},#{status},
+               #{orderTime},#{payTime},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime}
+              )
+    </insert>
+</mapper>
