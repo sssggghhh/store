@@ -1,4 +1,4 @@
-package com.cy.store.mapper;
+package com.cy.store.service;
 
 import com.cy.store.vo.CartVO;
 import org.junit.Test;
@@ -12,15 +12,15 @@ import java.util.List;
 @SpringBootTest
 //@RunWith：表示启动这个单元测试类（单元测试类是不能够运行的），需要传递一个参数，必须是SpringRunner的实例类型
 @RunWith(SpringRunner.class)
-public class CartMapperTests {
+public class CartServiceTests {
 
     @Autowired
-    private CartMapper cartMapper;
-
+    private ICartService cartService;
     @Test
-    public void findVOByCids() {
-        Integer[] cids = {1, 2, 3, 7, 8, 9, 10};
-        List<CartVO> list = cartMapper.findCartVOByCids(cids);
+    public void getVOByCids() {
+        Integer[] cids = {1, 2, 6, 7, 8, 9, 10};
+        Integer uid = 6;
+        List<CartVO> list = cartService.getCartVOByCids(uid, cids);
         System.out.println("count=" + list.size());
         for (CartVO item : list) {
             System.out.println(item);

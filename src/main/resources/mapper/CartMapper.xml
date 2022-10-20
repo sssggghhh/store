@@ -45,7 +45,7 @@
     </select>
 
     <!--根据若干个cid查询购物车中的数据-->
-    <select id="findCartVOByCids" resultMap="com.cy.store.vo.CartVO">
+    <select id="findCartVOByCids" resultType="com.cy.store.vo.CartVO">
         select cid,uid,pid,t_cart.price,t_cart.num,t_product.title,t_product.price as realPrice,t_product.image
         from t_cart left join t_product on t_cart.pid = t_product.id
         where cid in (
