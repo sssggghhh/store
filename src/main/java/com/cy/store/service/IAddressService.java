@@ -44,4 +44,12 @@ public interface IAddressService {
      */
     void deleteAddressByAid(Integer aid,Integer uid,String username);
 
+    /**
+     * 根据收货地址数据的id，查询收货地址详情
+     * @param aid
+     * @param uid
+     * @return 匹配的收货地址详情
+     */
+    Address getAddressByAid(Integer aid,Integer uid);
+
 }

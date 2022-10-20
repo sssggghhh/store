@@ -6,7 +6,7 @@
 <mapper namespace="com.cy.store.mapper.OrderMapper">
 
     <!--插入订单-->
-    <insert id="insertOrder" useGeneratedKeys="true" databaseId="oid">
+    <insert id="insertOrder" useGeneratedKeys="true" keyProperty="oid">
         insert into t_order(
                             uid,recv_name,recv_phone,recv_province,recv_city,recv_area,recv_address,recv_price,status,
                             order_time,pay_time,created_user,created_time,modified_user,modified_time
@@ -15,5 +15,14 @@
                #{uid},#{recvName},#{recvPhone},#{recvProvince},#{recvCity},#{recvArea},#{recvAddress},#{totalPrice},#{status},
                #{orderTime},#{payTime},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime}
               )
+    </insert>
+
+    <!--插入订单商品数据-->
+    <insert id="insertOrderItem" useGeneratedKeys="true" keyProperty="id">
+        insert into t_orderItem(
+                                oid,pid,title,image,price,num,created_user,created_time,modified_user,modified_time
+        )values(
+                #{oid},#{pid},#{title},#{image},#{price},#{num},#{createdTime},#{createdUser},#{modifiedUser},#{modifiedTime},
+                       )
     </insert>
 </mapper>
